@@ -20,7 +20,9 @@ public class Main {
                 if (arr[i] < arr[j]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
+                System.out.print(dp[i]+ " ");
             }
+            System.out.println();
             result = Math.max(dp[i], result);
         }
         System.out.println(result);

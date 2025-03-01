@@ -2,9 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int T;
-    static int K;
-    static PriorityQueue<Integer> pq = new PriorityQueue<>();
+    static int T, K;
+    static PriorityQueue<Long> pq = new PriorityQueue<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -13,13 +12,13 @@ public class Main {
 
         while(T-->0){
             K = Integer.parseInt(br.readLine());
-            int result = 0;
+            long result = 0;
             StringTokenizer st = new StringTokenizer(br.readLine());
             while(K-->0){
-                pq.add(Integer.parseInt(st.nextToken()));
+                pq.add(Long.parseLong(st.nextToken()));
             }
             while(pq.size()!=1){
-                int X = pq.poll() + pq.poll();
+                Long X = pq.poll() + pq.poll();
                 result+=X;
                 pq.add(X);
             }

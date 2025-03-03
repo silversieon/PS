@@ -18,30 +18,8 @@ public class Main {
             while(K-->0){
                 queue.add(Integer.parseInt(st.nextToken()));
             }
-            int minSize = Integer.MAX_VALUE;
-            int minIndex = 0;
             while(queue.size()!=1){
-                for(int i=0; i<queue.size()-1; i++){
-                    int A = queue.poll();
-                    int B = queue.poll();
-                    int X = A + B;
-                    if(X<minSize){
-                        minSize = X;
-                        minIndex = i;
-                    }
-                    queue.add(A);
-                    queue.add(B);
-                }
-                for(int i=0; i<queue.size()-2; i++){
-                    if(i==minIndex){
-                        int X = queue.poll() + queue.poll();
-                        result+=X;
-                        queue.add(X);
-                    } else {
-                        int C = queue.poll();
-                        queue.add(C);
-                    }
-                }
+                
             }
             sb.append(result).append('\n');
             queue.clear();

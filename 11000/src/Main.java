@@ -6,19 +6,17 @@ public class Main {
     static int[][] lesson;
     static PriorityQueue<Integer> pq = new PriorityQueue<>();
     static int caculateNumOfRoom(){
-        int start = lesson[0][0];
         int end = lesson[0][1];
         pq.add(end);
         for(int i=1; i<N; i++){
             int currentStart = lesson[i][0];
             int currentEnd = lesson[i][1];
-            if(currentStart>=start && currentStart<pq.peek()){
+            if(currentStart<pq.peek()){
                 countRoom++;
-                pq.add(currentEnd);
             } else {
                 pq.poll();
-                pq.add(currentEnd);
             }
+            pq.add(currentEnd);
         }
         return countRoom;
     }

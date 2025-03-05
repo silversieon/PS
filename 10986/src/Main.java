@@ -20,7 +20,7 @@ public class Main {
         }
 
         for(int i=1; i<=N; i++){
-            
+            System.out.println(A[i]);
         }
         System.out.println(count);
     }

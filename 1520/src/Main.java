@@ -41,13 +41,6 @@ public class Main {
                 dp[i][j] = -1;
             }
         }
-        int result = DFS(0, 0);
-        for(int i=0; i<M; i++){
-            for(int j=0; j<N; j++){
-                System.out.print(dp[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println(result);
+        System.out.println(DFS(0, 0));
     }
 }

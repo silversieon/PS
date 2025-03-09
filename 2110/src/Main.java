@@ -18,13 +18,14 @@ public class Main {
             }
         }
         minDistance = Math.min(minDistance, houses[N-1] - nowRouter);
-        return minDistance<=mid; // mid == 3 , F F F
+        return minDistance<=mid; 
     }
     static int binarySearch(){
         int lo = 0;
         int hi = max - min;
         while(lo+1<hi){
             int mid = (lo+hi)/2;
+            System.out.println(mid);
             if(Check(mid)){
                 hi = mid;
             } else {

@@ -11,15 +11,8 @@ public class Main {
         triangle = new int[N+1][N+1];
         for(int i=1; i<=N; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for(int k=0; k<i; k++){
-                triangle[i][k] = Integer.parseInt(st.nextToken());
-                if(k==0){
-                    triangle[i][k] += triangle[i-1][k];
-                } else if(k==i){
-                    triangle[i][k] += triangle[i-1][k-1];
-                } else {
-                    triangle[i][k] += Math.max(triangle[i-1][k-1], triangle[i-1][k]);
-                }
+            for(int k=1; k<=i; k++){
+                triangle[i][k] = Math.max(triangle[i-1][k-1], triangle[i-1][k]) + Integer.parseInt(st.nextToken());
                 max = Math.max(max, triangle[i][k]);
             }
         }

@@ -36,8 +36,12 @@ public class Main {
             lesson[i][0] = Integer.parseInt(st.nextToken());
             lesson[i][1] = Integer.parseInt(st.nextToken());
         }
+<<<<<<< HEAD
+        
+=======
+>>>>>>> a395a6939d0e7279614f591eddc5e88056d746da
         Arrays.sort(lesson, 0, N, Comparator.comparingInt(a->a[0]));
-    
+        
         System.out.println(caculateNumOfRoom());
     }
 }

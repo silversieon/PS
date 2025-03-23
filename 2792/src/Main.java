@@ -12,7 +12,7 @@ public class Main {
                 break;
             }
         }
-        return numOfstudent>=0 ? true : false;
+        return numOfstudent>=0;
     }
     static int caculateJealousy(){
         int lo = 0;

@@ -6,7 +6,7 @@ public class Main {
 
         int A = Integer.parseInt(br.readLine());
         String B = br.readLine();
-        System.out.println(B.length()-1);
+        
         for(int i=B.length()-1; i>=0; i--){
             System.out.println(A*(B.charAt(i)-'0'));
         }

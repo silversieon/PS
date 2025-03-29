@@ -10,8 +10,8 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=1; i<=N; i++){
-            P[i][0] = i; //개수
-            P[i][1] = Integer.parseInt(st.nextToken()); //가격
+            P[i][0] = i; 
+            P[i][1] = Integer.parseInt(st.nextToken());
         }
         
         int result = 0;

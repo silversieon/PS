@@ -33,7 +33,7 @@ public class Main {
                 count_House++;
             }
         }
-        return count_House;
+        return count_House; 
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

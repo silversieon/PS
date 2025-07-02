@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class App {
+public class Main {
     static int N, dasom, count = 0;
     static PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
     public static void main(String[] args) throws IOException {

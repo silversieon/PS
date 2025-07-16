@@ -34,6 +34,8 @@ public class Main {
                     }
                 }
             }
+            
+            //dp 배열 끝에서 최대값 정하기
             result = Math.max(dp[0][N+1], dp[1][N+1]);
             sb.append(result).append("\n");
         }

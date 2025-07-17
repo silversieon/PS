@@ -12,40 +12,37 @@ public class Main {
 
         while(T-->0){
             N = Integer.parseInt(br.readLine());
-            int[] wood = new int[N];
-            PriorityQueue<Integer> pq = new PriorityQueue<>();
+            int[] sortedWood = new int[N];
+            int[] resultWood = new int[N];
 
             st = new StringTokenizer(br.readLine());
             for(int i=0; i<N; i++){
-                Integer height = Integer.parseInt(st.nextToken());
-                pq.add(height);
+                sortedWood[i] = Integer.parseInt(st.nextToken());
             }
+            Arrays.sort(sortedWood);
+
             int lvalue = 0;
             int rvalue = N-1;
-            while(!pq.isEmpty()){
-                wood[lvalue] = pq.poll();
-                lvalue++;
-                if(!pq.isEmpty()){
-                    wood[rvalue] = pq.poll();
-                    rvalue--;
-                } else {
-                    break;
-                }
-            }
             for(int i=0; i<N; i++){
-                System.out.println("wood : " + wood[i]);
+                if(i%2 == 0){
+                    resultWood[lvalue] = sortedWood[i];
+                    lvalue++;
+                } else {
+                    resultWood[rvalue] = sortedWood[i];
+                    rvalue--;
+                }
             }
             int max = 0;
             
             for(int i=0; i<N; i++){
                 if(i==0){
-                    max = Math.max(max, Math.abs(wood[i] - wood[N-1]));
+                    max = Math.max(max, Math.abs(resultWood[i] - resultWood[N-1]));
                 } else {
-                    max = Math.min(max, Math.abs(wood[i] - wood[i-1]));
+                    max = Math.max(max, Math.abs(resultWood[i] - resultWood[i-1]));
                 }
             }
             sb.append(max).append("\n");
         }
-        System.out.println(sb.toString());
+        System.out.print(sb.toString());
     }
 }

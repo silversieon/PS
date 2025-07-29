@@ -5,12 +5,13 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        String A = (br.readLine());
-        String B = (br.readLine());
-        String C = (br.readLine());
+        int A = Integer.parseInt(br.readLine());
+        int B = Integer.parseInt(br.readLine());
+        int C = Integer.parseInt(br.readLine());
 
-        sb.append(Integer.parseInt(A) + Integer.parseInt(B) - Integer.parseInt(C)).append("\n");
-        sb.append(Integer.parseInt(A+B)-Integer.parseInt(C));
+        int k = (int)Math.log10(B) + 1;
+        sb.append(A+B-C).append("\n").append(A*(int)(Math.pow(10, k))+B-C);
+        
         System.out.println(sb.toString());
     }
 }

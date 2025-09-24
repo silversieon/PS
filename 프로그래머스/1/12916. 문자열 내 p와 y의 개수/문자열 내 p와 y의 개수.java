@@ -1,10 +1,11 @@
 class Solution {
     boolean solution(String s) {
         int count = 0;
+        s = s.toLowerCase();
         for(int i=0; i<s.length(); i++){
-            if(s.substring(i, i+1).equals("p") || s.substring(i, i+1).equals("P")){
+            if(s.substring(i, i+1).equals("p")){
                 count++;
-            } else if (s.substring(i, i+1).equals("y") || s.substring(i, i+1).equals("Y")){
+            } else if (s.substring(i, i+1).equals("y")){
                 count--;
             }
         }

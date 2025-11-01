@@ -2,27 +2,29 @@ import java.util.*;
 class Solution {
     public int solution(String s) {
         int answer = 0;
-        int length = s.length();
-        if(length%2!=0) return 0;
-        Stack<String> stack = new Stack<>();
-        for(int i=0; i<length; i++){
+        int N = s.length();
+        if(N%2!=0) return 0;
+        Stack<Character> stack = new Stack<>();
+        for(int i=0; i<N; i++){
             int cnt = 0;
             for(int k=i; ; k++){
-                if(cnt==length) break;
+                if(cnt==N) break;
+                if(k==N){
+                    k=-1;
+                    continue;
+                }
                 if(!stack.isEmpty()){
-                    String str = s.substring(k, k+1);
-                    if((str.equals("]") && stack.peek().equals("[")) ||  
-                        (str.equals(")") && stack.peek().equals("(")) ||
-                        (str.equals("}") && stack.peek().equals("{")) ){
+                    if((s.charAt(k) == ']' && stack.peek() == '[') ||  
+                        (s.charAt(k) == ')'&& stack.peek() == '(') ||
+                        (s.charAt(k) == '}'&& stack.peek() == '{' )){
                         stack.pop();
                     } else {
-                        stack.push(str);
+                        stack.push(s.charAt(k));
                     }
                 } else {
-                    stack.push(s.substring(k, k+1));
+                    stack.push(s.charAt(k));
                 }
                 cnt++;
-                if(k==length-1) k=-1;
             }
             if(stack.isEmpty()){
                 answer++;

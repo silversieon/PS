@@ -6,13 +6,7 @@ class Solution {
         if(N%2!=0) return 0;
         Stack<Character> stack = new Stack<>();
         for(int i=0; i<N; i++){
-            int cnt = 0;
-            for(int k=i; ; k++){
-                if(cnt==N) break;
-                if(k==N){
-                    k=-1;
-                    continue;
-                }
+            for(int k=0; k<N; k++){
                 if(!stack.isEmpty()){
                     if((s.charAt(k) == ']' && stack.peek() == '[') ||  
                         (s.charAt(k) == ')'&& stack.peek() == '(') ||
@@ -24,11 +18,13 @@ class Solution {
                 } else {
                     stack.push(s.charAt(k));
                 }
-                cnt++;
             }
             if(stack.isEmpty()){
                 answer++;
             }
+            char c = s.charAt(0);
+            s = s.substring(1, N);
+            s += c;
             stack.clear();
         }
         return answer;

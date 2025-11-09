@@ -1,6 +1,5 @@
 class Solution {
-    public long solution(int price, int money, int count) {
-        long totalCnt = ((long)price + price*count)*count/2;
-        return totalCnt > money ? totalCnt - money : 0;
+    public long solution(long price, long money, long count) {
+        return Math.max(((price + price*count)*count/2) - money, 0);
     }
 }

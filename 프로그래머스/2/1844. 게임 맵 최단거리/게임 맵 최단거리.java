@@ -4,7 +4,7 @@ class Solution {
     private static int[] dx = {-1, 1, 0, 0};
     private static int[] dy = {0, 0, 1, -1};
     private static int min = 10000;
-    private void bfs(int[][] maps){
+    public int solution(int[][] maps) {
         int N = maps.length;
         int M = maps[0].length;
         
@@ -32,9 +32,6 @@ class Solution {
             }
         }
         if(min == 10000) min = -1;
-    }
-    public int solution(int[][] maps) {
-        bfs(maps);
         return min;
     }
 }

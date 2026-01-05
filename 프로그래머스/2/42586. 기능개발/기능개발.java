@@ -3,12 +3,12 @@ class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
         Queue<Integer> finishDay = new LinkedList<>();
         for(int i=0; i<speeds.length; i++){
-            finishDay.offer((int)(Math.ceil((100 - progresses[i]) / (double)speeds[i])));
+            finishDay.offer((int)Math.ceil((100 - progresses[i]) / (double)(speeds[i])));
         }
         List<Integer> list = new ArrayList<>();
         while(!finishDay.isEmpty()){
-            int progress = finishDay.peek();
-            int v = 0;
+            int progress = finishDay.poll();
+            int v = 1;
             while(!finishDay.isEmpty() && progress>= finishDay.peek()){
                 finishDay.poll();
                 v++;

@@ -2,12 +2,11 @@ import java.util.*;
 import java.util.regex.*;
 class Solution {
     public int[] solution(String s) {
-       Map<String, Integer> map = new HashMap<>();
-        Pattern pattern = Pattern.compile("[0-9]+");
-        Matcher matcher = pattern.matcher(s);
-        while (matcher.find()) {
-            String n = matcher.group();
-            map.put(n, map.getOrDefault(n, 0) + 1);
+        Map<String, Integer> map = new HashMap<>();
+        s = s.replaceAll("[^0-9,]", "");
+        String[] arr = s.split(",");
+        for(String num : arr){
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
         int size = map.size();
         int[] answer = new int[size];

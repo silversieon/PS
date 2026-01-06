@@ -7,13 +7,10 @@ class Solution {
             Integer num = Integer.parseInt(st.nextToken());
             hash.put(num, hash.getOrDefault(num, 0) + 1);
         }
-        int[] answer = new int[hash.keySet().size()];
-        PriorityQueue<Integer[]> pq = new PriorityQueue<>(Comparator.comparingInt((Integer[] a) -> a[1]).reversed());
+        int size = hash.size();
+        int[] answer = new int[size];
         for(Integer num : hash.keySet()){
-            pq.add(new Integer[]{num, hash.get(num)});
-        }
-        for(int i=0; i<answer.length; i++){
-            answer[i] = pq.poll()[0];
+            answer[size - hash.get(num)] = num;
         }
         return answer;
     }

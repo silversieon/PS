@@ -1,16 +1,18 @@
 import java.util.*;
+import java.util.regex.*;
 class Solution {
     public int[] solution(String s) {
-        StringTokenizer st = new StringTokenizer(s, "},{");
-        Map<Integer, Integer> hash = new HashMap<>();
-        while(st.hasMoreTokens()){
-            Integer num = Integer.parseInt(st.nextToken());
-            hash.put(num, hash.getOrDefault(num, 0) + 1);
+       Map<String, Integer> map = new HashMap<>();
+        Pattern pattern = Pattern.compile("[0-9]+");
+        Matcher matcher = pattern.matcher(s);
+        while (matcher.find()) {
+            String n = matcher.group();
+            map.put(n, map.getOrDefault(n, 0) + 1);
         }
-        int size = hash.size();
+        int size = map.size();
         int[] answer = new int[size];
-        for(Integer num : hash.keySet()){
-            answer[size - hash.get(num)] = num;
+        for (String key: map.keySet()) {
+            answer[size - map.get(key)] = Integer.parseInt(key);
         }
         return answer;
     }

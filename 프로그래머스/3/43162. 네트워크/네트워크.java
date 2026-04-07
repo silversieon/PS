@@ -1,40 +1,29 @@
 import java.util.*;
 class Solution {
-    static int N, answer = 0, connectCount = 0;
-    static boolean[][] visited;
-    static HashSet<Integer> hs = new HashSet<>();
-    static void dfs(int i, int[][] computers){
-        for(int j=0; j<N; j++){
-            if(i==j) continue;
-            if(!visited[i][j] && computers[i][j]==1){
-                hs.add(i);
-                hs.add(j);
-                visited[i][j] = true;
-                visited[j][i] = true;
-                dfs(j, computers);
-            }
+    static boolean[] visited;
+    static List<List<Integer>> graph = new ArrayList<>();
+    static void dfs(int node){
+        visited[node] = true;
+        for(int i=0; i<graph.get(node).size(); i++) {
+            int next = graph.get(node).get(i);
+            if(!visited[i] && next==1) dfs(i);
         }
     }
     public int solution(int n, int[][] computers) {
-        N = n;
-        answer = N;
-        visited = new boolean[N][N];
-        for(int i=0; i<N; i++){
-            boolean isConnect = false;
-            for(int j=0; j<N; j++){
-                if(i==j) continue;
-                if(!visited[i][j] && computers[i][j]==1){
-                    isConnect = true;
-                    hs.add(i);
-                    hs.add(j);
-                    visited[i][j] = true;
-                    visited[j][i] = true;
-                    dfs(j, computers);
-                }
+        int answer = 0;
+        visited = new boolean[n];
+        for(int i=0; i<n; i++){
+            graph.add(new ArrayList<>());
+        }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                graph.get(i).add(computers[i][j]);
             }
-            if(isConnect){
-                answer = answer - hs.size() + 1;
-                hs.clear();
+        }
+        for(int i=0; i<n; i++){
+            if(!visited[i]) {
+                dfs(i);
+                answer++;
             }
         }
         return answer;

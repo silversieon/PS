@@ -1,18 +1,13 @@
-import java.util.*;
-
 class Solution {
     boolean solution(String s) {
         boolean isCorrect = false;
-        Stack<Character> stack = new Stack<>();
+        int cnt = 0;
         for(int i=0; i<s.length(); i++){
-            char c = s.charAt(i);
-            if(!stack.isEmpty() && c == ')' && stack.peek() == '(') {
-                stack.pop();
-                continue;
-            }
-            stack.push(c);
+            if (s.charAt(i) == '(') cnt++;
+            if (s.charAt(i) == ')') cnt--;
+            if (cnt < 0) break;
         }
-        if(stack.isEmpty()) isCorrect = true;
+        if(cnt == 0) isCorrect = true;
         return isCorrect;
     }
 }

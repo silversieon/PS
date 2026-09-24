@@ -5,7 +5,6 @@ class Solution {
         Queue<Integer> finishDays = new LinkedList<>();
         for(int i=0; i<speeds.length; i++) {
             finishDays.add((int)(Math.ceil((100 - progresses[i]) / (double) (speeds[i]))));
-            System.out.println((int)(Math.ceil((100 - progresses[i]) / (double) (speeds[i]))));
         }
         List<Integer> list = new ArrayList<>();
         while(!finishDays.isEmpty()) {

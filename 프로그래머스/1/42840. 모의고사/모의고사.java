@@ -13,10 +13,15 @@ class Solution {
         }  
         
         int max = Math.max(score[0], Math.max(score[1], score[2]));
-        List<Integer> answer = new ArrayList<>();
-        if(max == score[0]) answer.add(1);
-        if(max == score[1]) answer.add(2);
-        if(max == score[2]) answer.add(3);
-        return answer.stream().mapToInt(i -> i.intValue()).toArray();
+        List<Integer> list = new ArrayList<>();
+        if(max == score[0]) list.add(1);
+        if(max == score[1]) list.add(2);
+        if(max == score[2]) list.add(3);
+        
+        int[] answer = new int[list.size()];
+        for(int i=0; i<list.size(); i++){
+            answer[i] = list.get(i);
+        }
+        return answer;
     }
 }

@@ -1,20 +1,16 @@
 import java.util.*;
 class Solution {
     private final Set<Integer> made = new HashSet<>();
-
+    private static int count = 0;
     public int solution(String numbers) {
         boolean[] visited = new boolean[numbers.length()];
         dfs("", numbers.toCharArray(), visited);
-        
-        int count = 0;
-        for(int n : made) {
-            if (isPrime(n)) count++;
-        }
         return count;
     }
     
     private void dfs(String cur, char[] digits, boolean[] visited) {
-        if(!cur.isEmpty()) {
+        if(!cur.isEmpty() && !made.contains(Integer.parseInt(cur)) && isPrime(Integer.parseInt(cur))) {
+            count++;
             made.add(Integer.parseInt(cur));
         }
         for(int i=0; i<digits.length; i++) {

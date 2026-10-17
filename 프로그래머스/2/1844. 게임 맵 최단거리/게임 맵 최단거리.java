@@ -1,37 +1,60 @@
 import java.util.*;
-import java.awt.Point;
+class Node {
+    int x;
+    int y;
+    int cnt;
+    
+    public Node(int x, int y, int cnt) {
+        this.x = x;
+        this.y = y;
+        this.cnt = cnt;
+    }
+    
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+    public int getCnt() {
+        return this.cnt;
+    }
+}
 class Solution {
     private static int[] dx = {-1, 1, 0, 0};
     private static int[] dy = {0, 0, 1, -1};
-    private static int min = 10000;
+    private int answer = Integer.MAX_VALUE;
+    private boolean[][] visited;
+    private Queue<Node> queue = new LinkedList<>();
     public int solution(int[][] maps) {
-        int N = maps.length;
-        int M = maps[0].length;
+        int n = maps.length, m = maps[0].length;
+        visited = new boolean[n][m];
         
-        Queue<Point> q = new LinkedList<>();
-        q.add(new Point(0, 0));
-        boolean[][] visited = new boolean[N][M];
         visited[0][0] = true;
+        queue.add(new Node(0, 0, 1));
         
-        while(!q.isEmpty()){
-            Point p = q.poll();
-            int curX = (int)(p.getX());
-            int curY = (int)(p.getY());
-            if(curX == N-1 && curY == M-1){
-                min = Math.min(min, maps[curX][curY]);
-                break;
+        while(!queue.isEmpty()) {
+            Node node = queue.poll();
+            int cX = node.getX();
+            int cY = node.getY();
+            int cnt = node.getCnt();
+            
+            if(cX==n-1 && cY==m-1) {
+                answer = Math.min(answer, cnt);
+                continue;
             }
-            for(int i=0; i<4; i++){
-                int nextX = curX + dx[i];
-                int nextY = curY + dy[i];
-                if(nextX>=0 && nextX<N && nextY>=0 && nextY<M && maps[nextX][nextY] == 1 && visited[nextX][nextY] == false){
-                    visited[nextX][nextY] = true;
-                    maps[nextX][nextY] += maps[curX][curY];
-                    q.add(new Point(nextX, nextY));
+            
+            for (int i=0; i<4; i++) {
+                int nX = cX + dx[i];
+                int nY = cY + dy[i];
+
+                if(nX >=0 && nX<n && nY >=0 && nY<m && maps[nX][nY]==1 && !visited[nX][nY]) {
+                    visited[nX][nY] = true;
+                    queue.add(new Node(nX, nY, cnt+1));
                 }
-            }
         }
-        if(min == 10000) min = -1;
-        return min;
+        }
+            
+        return answer != Integer.MAX_VALUE ? answer : -1;
     }
 }

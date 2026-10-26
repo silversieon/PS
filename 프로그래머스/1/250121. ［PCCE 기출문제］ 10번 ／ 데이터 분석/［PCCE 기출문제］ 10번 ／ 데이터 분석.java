@@ -1,29 +1,26 @@
 import java.util.*;
 class Solution {
     public int[][] solution(int[][] data, String ext, int val_ext, String sort_by) {
-        int extCode = changeValue(ext);
-        int cnt = 0;
-        for(int[] d : data) {
-            if(d[extCode] < val_ext) cnt++;
-        }
-        int[][] answer = new int[cnt][4];
-        int idx = 0;
-        for(int[] d : data) {
-            if(d[extCode] < val_ext) {
-                answer[idx++] = d;
+        int extIdx = toColumnIndex(ext);
+        int sortIdx = toColumnIndex(sort_by);
+        
+        List<int[]> filtered = new ArrayList<>();
+        for (int[] row : data) {
+            if (row[extIdx] < val_ext) {
+                filtered.add(row);
             }
         }
-        Arrays.sort(answer, (a, b) -> {
-            int sortCode = changeValue(sort_by);
-            return a[sortCode] - b[sortCode];
-        });
-        return answer;
+        
+        filtered.sort(Comparator.comparingInt(a -> a[sortIdx]));
+        return filtered.toArray(new int[0][]);
     }
-    private int changeValue(String s) {
-        if(s.equals("code")) return 0;
-        else if(s.equals("date")) return 1;
-        else if(s.equals("maximum")) return 2;
-        else if(s.equals("remain")) return 3;
-        else return -1;
+    private int toColumnIndex(String column) {
+        return switch(column) {
+            case "code" -> 0;
+            case "date" -> 1;
+            case "maximum" -> 2;
+            case "remain" -> 3;
+            default -> throw new IllegalArgumentException("error");
+        };
     }
 }

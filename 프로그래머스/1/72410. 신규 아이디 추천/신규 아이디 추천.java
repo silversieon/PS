@@ -1,42 +1,29 @@
 class Solution {
     public String solution(String new_id) {
-        // 1
-        new_id = new_id.toLowerCase();
+        String id = new_id.toLowerCase();
         
-        // 2
         StringBuilder sb = new StringBuilder();
-        int k=0;
-        for(int i=0; i<new_id.length(); i++) {
-            char c = new_id.charAt(i);
-            if(Character.isAlphabetic(c) || Character.isDigit(c) || c=='-' || c=='_' || c=='.') {
-                sb.append(c);
-            }
-        }
-        String s3 = sb.toString();
-        sb.setLength(0);
-        for(int i=0; i<s3.length(); i++) {
-            char c = s3.charAt(i);
+        for(char c : id.toCharArray()) {
+            boolean allowed = Character.isAlphabetic(c) || Character.isDigit(c) || c == '-' || c == '_' || c == '.';
+            
+            if (!allowed) continue;
+            if (c == '.' && sb.length() > 0 && sb.charAt(sb.length() -1) == '.') continue;
             sb.append(c);
-            if (c=='.') {
-                    while(i<s3.length()-1 && s3.charAt(i+1) == '.') i++;
-                }
         }
-        String s4 = sb.toString();
-        if (s4.charAt(0) == '.') s4 = s4.substring(1, s4.length());
-        if (s4.length() != 0 && s4.charAt(s4.length()-1) == '.') s4 = s4.substring(0, s4.length() -1);
         
-        String s5 = s4;
-        if(s5.isEmpty()) s5 = "a";
-        String s6 = s5;
-        if(s6.length() >= 16 ) s6 = s6.substring(0, 15);
-        if (s6.charAt(s6.length()-1) == '.') s6 = s6.substring(0, s6.length() -1);
-        String s7 = s6;
-        if (s7.length() <= 2) {
-            while(s7.length() <= 2) {
-                s7 += s7.charAt(s7.length() -1);
-            }
+        if(sb.length() > 0 && sb.charAt(0) == '.') sb.deleteCharAt(0);
+        if(sb.length() > 0 && sb.charAt(sb.length() - 1) == '.') sb.deleteCharAt(sb.length() - 1);
+        
+        if(sb.length() == 0) sb.append('a');
+        
+        if(sb.length() >= 16) {
+            sb.setLength(15);
+            if (sb.charAt(14) == '.') sb.deleteCharAt(14);
         }
-        return s7;
+        
+        while(sb.length() <= 2) sb.append(sb.charAt(sb.length()-1));
+        
+        return sb.toString();
     }
 }
 

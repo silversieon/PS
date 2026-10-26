@@ -6,7 +6,7 @@ class Solution {
         
         return Arrays.stream(data)
             .filter(row -> row[extIdx] < val_ext)
-            .sorted(Comparator.comparing(row -> row[sortIdx]))
+            .sorted(Comparator.comparingInt(row -> row[sortIdx]))
             .toArray(int[][]::new);
     }
     private int toColumnIndex(String column) {

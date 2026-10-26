@@ -4,15 +4,10 @@ class Solution {
         int extIdx = toColumnIndex(ext);
         int sortIdx = toColumnIndex(sort_by);
         
-        List<int[]> filtered = new ArrayList<>();
-        for (int[] row : data) {
-            if (row[extIdx] < val_ext) {
-                filtered.add(row);
-            }
-        }
-        
-        filtered.sort(Comparator.comparingInt(a -> a[sortIdx]));
-        return filtered.toArray(new int[0][]);
+        return Arrays.stream(data)
+            .filter(row -> row[extIdx] < val_ext)
+            .sorted(Comparator.comparing(row -> row[sortIdx]))
+            .toArray(int[][]::new);
     }
     private int toColumnIndex(String column) {
         return switch(column) {

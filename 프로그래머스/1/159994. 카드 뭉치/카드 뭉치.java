@@ -5,19 +5,16 @@ class Solution {
         // 3. 모두 순회하여 만들기 성공하면 YES 반환
         int i=0;
         int j=0;
-        int idx=0;
-        while ((i!=cards1.length || j!=cards2.length) && idx != goal.length) {
-            String target = goal[idx];
-            if (i<cards1.length && cards1[i].equals(target)) {
+        for(String word : goal) {
+            if(i<cards1.length && cards1[i].equals(word)) {
                 i++;
-                idx++;
-            } else if (j<cards2.length && cards2[j].equals(target)) {
+            } else if (j<cards2.length && cards2[j].equals(word)) {
                 j++;
-                idx++;
             } else {
                 return "No";
             }
         }
+        
         return "Yes";
     }
 }

@@ -17,28 +17,26 @@ class Solution {
             
             // 시간 값을 분으로 치환
             int minute = Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]);
-            //System.out.println(minute);
             
             if(type.equals("IN")) {
                 in_time.put(car, minute);
             } else {
-                count_table.put(car, count_table.getOrDefault(car, 0) + (minute - in_time.get(car)));
-                in_time.remove(car);
+                count_table.put(car, count_table.getOrDefault(car, 0) + (minute - in_time.remove(car)));
             }
         }
-        for(String remain_car : in_time.keySet()) {
+        for(Map.Entry<String, Integer> e : in_time.entrySet()) {
             int minute = 23*60 + 59;
-            count_table.put(remain_car, count_table.getOrDefault(remain_car, 0) + (minute - in_time.get(remain_car)));
+            count_table.put(e.getKey(), count_table.getOrDefault(e.getKey(), 0) + (minute - e.getValue()));
         }
         
         int[] answer = new int[count_table.size()];
         int idx = 0;
-        for(String car : count_table.keySet()) {
-            answer[idx++] = calc(count_table.get(car), fees);
+        for(int time : count_table.values()) {
+            answer[idx++] = calc(fees, time);
         }
         return answer;
     }
-    private int calc(int minute, int[] fees) {
+    private int calc(int[] fees, int minute) {
         if (minute <= fees[0]) return fees[1];
         return fees[1] + (int)Math.ceil((double)(minute - fees[0]) /fees[2]) * fees[3];
     }

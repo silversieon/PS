@@ -2,8 +2,9 @@ class Solution {
     public int solution(String s) {
         int answer = s.length();
         // 문자열을 1개부터 s의 길이 절반만큼 압축한다. (2중 for문)
-        // StringBuilder에 담으면서, 이전 문자열과 같으면 맨 앞에 숫자를 증가시킨다 (시작은 2)
-        // 문자열 길이를 담을 변수를 하나 놓고, 비교하며 더 짧은 것을 저장
+        // StringBuilder에 담으면서, 이전 문자열과 같으면 반복 횟수를 증가시킨다 (시작은 1)
+        // 이전 문자열과 다른 문자열을 만나면 반복 횟수를 문자열에 담고, 현재 문자열을 이전 문자열로 만든다
+        // 문자열 길이를 담을 변수 answer을 비교하며 더 짧은 것을 저장
         for(int k=1; k<=s.length()/2; k++) {
             StringBuilder sb = new StringBuilder();
             String prev = s.substring(0, k);

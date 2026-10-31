@@ -10,7 +10,7 @@ class Solution {
             int damage = attack[1];
             int healTime = curTime - prevTime;
             health += bandage[1] * healTime + healTime / bandage[0] * bandage[2];
-            if (health > maxHealth) health = maxHealth;
+            health = health > maxHealth ? maxHealth : health;
             health -= damage;
             if (health <= 0) return -1;
             prevTime = curTime + 1;

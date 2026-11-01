@@ -7,26 +7,17 @@ class Solution {
         int opStartSec = toSeconds(op_start);
         int opEndSec = toSeconds(op_end);
         
-        for(String command : commands) {
-            if (posSec >= opStartSec && posSec <= opEndSec) posSec = opEndSec;
-            if(command.equals("prev")) {
-                posSec = posSec-10 >= 0 ? posSec-10 : 0;
-            } else if (command.equals("next")) {
-                posSec = posSec+10 <= videoLenSec ? posSec+10 : videoLenSec;
-            }
-        }
         if (posSec >= opStartSec && posSec <= opEndSec) posSec = opEndSec;
-        return toTime(posSec);
+        for(String command : commands) {
+            if(command.equals("prev")) posSec = Math.max(0, posSec - 10);
+            else posSec = Math.min(videoLenSec, posSec + 10);
+            if (posSec >= opStartSec && posSec <= opEndSec) posSec = opEndSec;
+        }
+        return String.format("%02d:%02d", posSec/60, posSec%60);
     }
     private int toSeconds(String time) {
-        return Integer.parseInt(time.substring(0, 2)) * 60 + Integer.parseInt(time.substring(3, 5));
-    }
-    private String toTime(int sec) {
-        String m = String.valueOf(sec/60);
-        String s = String.valueOf(sec%60);
-        m = m.length() == 1 ? "0"+m : m;
-        s = s.length() == 1 ? "0"+s : s;
-        return m+":"+s;
+        String[] t = time.split(":");
+        return Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]);
     }
 }
 // 27분

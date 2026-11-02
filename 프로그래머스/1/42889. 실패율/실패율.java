@@ -1,34 +1,38 @@
 import java.util.*;
 class Solution {
     public int[] solution(int N, int[] stages) {
-        // 스테이지 번호, 실패율을 담을 2차원 double 배열 필요
-        // 누적 유저 수 저장할 변수 필요
-        // stages를 정렬하고, 스테이지별 실패율 계산
-        // result를 실패율 내림차순 정렬하고 스테이지 번호를 반환
-        double[][] result = new double[N][2];
+        // 1. 스테이지별 멈춰 있는 사람의 수 저장
+        int[] count = new int[N+2];
+        for(int s : stages) {
+            count[s]++;
+        }
+        
+        // 2. 각 스테이지별 실패율 저장
+        double[] fail = new double[N+1];
+        int reached = stages.length;
+        for(int i=1; i<=N; i++) {
+            if (reached == 0) {
+                fail[i] = 0;
+            } else {
+                fail[i] = (double)count[i] / reached;
+            }
+            reached -= count[i];
+        }
+        
+        // 3. 스테이지별 순서 계산
+        Integer[] orders = new Integer[N];
         for(int i=0; i<N; i++) {
-            result[i][0] = (double)i;
+            orders[i] = i+1;
         }
-        Map<Integer, Integer> userCount = new TreeMap<>();
-        for(int i=0; i<stages.length; i++) {
-            userCount.put(stages[i], userCount.getOrDefault(stages[i], 0) + 1);
-        }
-        int prevCount = 0;
-        for(Map.Entry<Integer, Integer> e : userCount.entrySet()) {
-            if(e.getKey() < N+1) {
-                result[e.getKey()-1][1] = (double)e.getValue() / (stages.length - prevCount);
-            }
-            prevCount += e.getValue();
-        }
-        Arrays.sort(result, (a, b) -> {
-            if (b[1] != a[1]) {
-                return Double.compare(b[1], a[1]);
-            }
-            return Double.compare(a[0], b[0]);
+        Arrays.sort(orders, (a, b) -> {
+            if(fail[a] != fail[b]) return Double.compare(fail[b], fail[a]);
+            return a - b;
         });
+        
+        // 4. int 배열 변환 후 반환
         int[] answer = new int[N];
         for(int i=0; i<N; i++){
-            answer[i] = (int)result[i][0] + 1;
+            answer[i] = orders[i];
         }
         return answer;
     }

@@ -1,17 +1,26 @@
 import java.util.*;
-import java.util.regex.*;
 class Solution {
     public int[] solution(String s) {
-        Map<String, Integer> map = new HashMap<>();
-        s = s.replaceAll("[^0-9,]", "");
-        String[] arr = s.split(",");
-        for(String num : arr){
-            map.put(num, map.getOrDefault(num, 0) + 1);
+        // s의 각 인덱스를 순회하며 '{'를 만날 시 int 배열에 담아 List에 저장
+        // 각 int 배열 길이에 따라 List를 정렬하고 순회하며 result에 담기 (HashSet 사용?)
+        String[] strs = s.substring(2, s.length()-2).split("\\},\\{");
+        Arrays.sort(strs, (a, b) -> Integer.compare(a.length(), b.length()));
+        
+        Set<Integer> set = new HashSet<>();
+        List<Integer> answerList = new ArrayList<>();
+        for(String str: strs){
+            String[] nums = str.split(",");
+            for(String num : nums) {
+                Integer n = Integer.parseInt(num);
+                if(!set.contains(n)) {
+                    answerList.add(n);
+                    set.add(n);
+                }
+            }
         }
-        int size = map.size();
-        int[] answer = new int[size];
-        for (String key: map.keySet()) {
-            answer[size - map.get(key)] = Integer.parseInt(key);
+        int[] answer = new int[answerList.size()];
+        for(int i=0; i<answerList.size(); i++) {
+            answer[i] = answerList.get(i);
         }
         return answer;
     }

@@ -12,10 +12,9 @@ class Solution {
         for(String str: strs){
             String[] nums = str.split(",");
             for(String num : nums) {
-                Integer n = Integer.parseInt(num);
-                if(!set.contains(n)) {
+                int n = Integer.parseInt(num);
+                if(set.add(n)) {
                     answerList.add(n);
-                    set.add(n);
                 }
             }
         }

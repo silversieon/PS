@@ -1,7 +1,8 @@
 class Solution {
     public int[] solution(int[] sequence, int k) {
-        // 2중 for문을 통해 sequence의 부분 수열의 합 구하기 (시간 초과)
+        // 좌측 인덱스 l, 우측 인덱스 r
         // l, r을 0부터 시작해서 r을 증가하는데, k를 넘어서면 l++
+        // 만약 현재까지 합이 k와 같고, 길이가 기존 길이보다 짧다면 l, r 갱신
         int[] answer = new int[]{0, 1000000};
         int n = sequence.length;
         int length = 1000000;

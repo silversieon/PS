@@ -8,14 +8,14 @@ class Solution {
         for(int i=0; i<players.length; i++) idx.put(players[i], i);
         
         for (String call : callings) {
-            int k = idx.get(call);
+            int cur = idx.get(call);
             
-            String temp = players[k];
-            players[k] = players[k-1];
-            players[k-1] = temp;
+            String front = players[cur-1];
+            players[cur-1] = players[cur];
+            players[cur] = front;
             
-            idx.put(players[k-1], k-1);
-            idx.put(players[k], k);
+            idx.put(call, cur-1);
+            idx.put(front, cur);
         }
         return players;
     }

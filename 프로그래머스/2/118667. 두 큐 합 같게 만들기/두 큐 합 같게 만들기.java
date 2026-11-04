@@ -30,7 +30,7 @@ class Solution {
                 sum1 += num2;
             }
             count++;
-            if (q1.isEmpty() || q2.isEmpty() || count == queue1.length*4) return -1;
+            if (q1.isEmpty() || q2.isEmpty() || count == queue1.length*3) return -1;
         }
         // 5. 두 큐의 값이 target과 같아지면 종료하고 횟수 반환
         return count;

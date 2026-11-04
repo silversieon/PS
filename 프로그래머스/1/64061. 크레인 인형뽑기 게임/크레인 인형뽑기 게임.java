@@ -1,25 +1,29 @@
 import java.util.*;
-
 class Solution {
     public int solution(int[][] board, int[] moves) {
-        int answer = 0;
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        // moves 배열을 순회하며 값-1(board의 row 인덱스)을 찾음
+        // 값-1에서 col을 순회하며 먼저 나오는 값 찾음
+        // Stack이 비어있지 않을 때, peek 값과 같으면 Stack에서 pop, result+2
+        // peek값과 다르면 Stack에 삽입
         int n = board.length;
-
+        int result = 0;
+        Stack<Integer> stack = new Stack<>();
+        
         for(int move : moves) {
-            for(int i=0; i<n; i++) {
-                if(board[i][move-1] != 0){
-                    if(!stack.isEmpty() && stack.peek() == board[i][move-1]) {
+            for (int k=0; k<n; k++) {
+                int doll = board[k][move-1];
+                if(doll != 0) {
+                    board[k][move-1] = 0;
+                    if(!stack.isEmpty() && doll == stack.peek()) {
                         stack.pop();
-                        answer+=2;
+                        result+=2;
                     } else {
-                        stack.push(board[i][move-1]);
+                        stack.push(doll);
                     }
-                    board[i][move-1] = 0;
                     break;
                 }
             }
         }
-        return answer;
+        return result;
     }
 }

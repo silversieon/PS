@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 85.9 MB, 시간: 0.64 ms
+메모리: 65.9 MB, 시간: 0.95 ms
 
 ### 구분
 
@@ -16,22 +16,22 @@
 
 ### 제출 일자
 
-2026년 04월 07일 09:54:30
+2026년 11월 04일 13:34:28
 
 ### 문제 설명
 
 <p>게임개발자인 "죠르디"는 크레인 인형뽑기 기계를 모바일 게임으로 만들려고 합니다.<br>
 "죠르디"는 게임의 재미를 높이기 위해 화면 구성과 규칙을 다음과 같이 게임 로직에 반영하려고 합니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/69f1cd36-09f4-4435-8363-b71a650f7448/crane_game_101.png" title="" alt="crane_game_101.png"></p>
+<p><img src="https://asset.programmers.co.kr/files/production/69f1cd36-09f4-4435-8363-b71a650f7448/crane_game_101.png" title="" alt="crane_game_101.png"></p>
 
 <p>게임 화면은 <strong>"1 x 1"</strong> 크기의 칸들로 이루어진 <strong>"N x N"</strong> 크기의 정사각 격자이며 위쪽에는 크레인이 있고 오른쪽에는 바구니가 있습니다. (위 그림은 "5 x 5" 크기의 예시입니다). 각 격자 칸에는 다양한 인형이 들어 있으며 인형이 없는 칸은 빈칸입니다. 모든 인형은 "1 x 1" 크기의 격자 한 칸을 차지하며 <strong>격자의 가장 아래 칸부터 차곡차곡 쌓여 있습니다.</strong> 게임 사용자는 크레인을 좌우로 움직여서 멈춘 위치에서 가장 위에 있는 인형을 집어 올릴 수 있습니다. 집어 올린 인형은 바구니에 쌓이게 되는 데, 이때 바구니의 가장 아래 칸부터 인형이 순서대로 쌓이게 됩니다. 다음 그림은  [1번, 5번, 3번] 위치에서 순서대로 인형을 집어 올려 바구니에 담은 모습입니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/638e2162-b1e4-4bbb-b0d7-62d31e97d75c/crane_game_102.png" title="" alt="crane_game_102.png"></p>
+<p><img src="https://asset.programmers.co.kr/files/production/638e2162-b1e4-4bbb-b0d7-62d31e97d75c/crane_game_102.png" title="" alt="crane_game_102.png"></p>
 
 <p>만약 같은 모양의 인형 두 개가 바구니에 연속해서 쌓이게 되면 두 인형은 터뜨려지면서 바구니에서 사라지게 됩니다. 위 상태에서 이어서 [5번] 위치에서 인형을 집어 바구니에 쌓으면 같은 모양 인형 <strong>두 개</strong>가 없어집니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/8569d736-091e-4771-b2d3-7a6e95a20c22/crane_game_103.gif" title="" alt="crane_game_103.gif"></p>
+<p><img src="https://asset.programmers.co.kr/files/production/8569d736-091e-4771-b2d3-7a6e95a20c22/crane_game_103.gif" title="" alt="crane_game_103.gif"></p>
 
 <p>크레인 작동 시 인형이 집어지지 않는 경우는 없으나 만약 인형이 없는 곳에서 크레인을 작동시키는 경우에는 아무런 일도 일어나지 않습니다. 또한 바구니는 모든 인형이  들어갈 수 있을 만큼 충분히 크다고 가정합니다. (그림에서는 화면표시 제약으로 5칸만으로 표현하였음)</p>
 
@@ -72,7 +72,7 @@
 
 <p>인형의 처음 상태는 문제에 주어진 예시와 같습니다. 크레인이 [1, 5, 3, 5, 1, 2, 1, 4] 번 위치에서 차례대로 인형을 집어서 바구니에 옮겨 담은 후, 상태는 아래 그림과 같으며 바구니에 담는 과정에서 터트려져 사라진 인형은 4개 입니다.</p>
 
-<p><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/bb0f59c7-6b72-485a-8302-217fe53ea88f/crane_game_104.jpg" title="" alt="crane_game_104.jpg"></p>
+<p><img src="https://asset.programmers.co.kr/files/production/bb0f59c7-6b72-485a-8302-217fe53ea88f/crane_game_104.jpg" title="" alt="crane_game_104.jpg"></p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges

@@ -1,38 +1,36 @@
 import java.util.*;
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
-        // 1. 두 큐의 원소의 합 구하고, 목표 값 설정 (target)
-        // 2. 두 큐의 현재 합을 변수에 따로 저장 (매번 순회X)
-        long sum1 = 0, sum2 = 0;
-        // 3. 큐 자료구조 2개에 각각 값을 넣으며 1, 2번 값 할당
-        Deque<Integer> q1 = new ArrayDeque<>();
-        Deque<Integer> q2 = new ArrayDeque<>();
-        for(int num : queue1) {
-            q1.add(num);
-            sum1 += num;
+        // 1. 두 큐를 하나의 배열로 이어 붙이고 투포인터 활용 (논리적 원형 큐)
+        // 2. 큐 하나의 합과 전체 합을 따로 변수에 저장
+        int n = queue1.length;
+        int[] queue = new int[n*2];
+        long sum1 = 0, total = 0;
+        for (int i=0; i<n; i++) {
+            queue[i] = queue1[i];
+            queue[i+n] = queue2[i];
+            sum1 += queue1[i];
+            total += queue1[i] + queue2[i];
         }
-        for(int num : queue2) {
-            q2.add(num);
-            sum2 +=num;
-        }
-        // 4. target보다 큰 쪽에서 작은쪽으로 값을 주도록 반복 수행
+        if (total%2!=0) return -1;
+        
+        long target = total/2;
+        int l=0, r=n;
         int count = 0;
-        while (sum1 != sum2 ) {
-            if (sum1 > sum2) {
-                int num1 = q1.poll();
-                q2.add(num1);
-                sum1 -= num1;
-                sum2 += num1;
-            } else if (sum2 > sum1) {
-                int num2 = q2.poll();
-                q1.add(num2);
-                sum2 -= num2;
-                sum1 += num2;
+        int limit = n*3;
+        // 5. 원형 큐 내에서 l과 r 이동하며 합 구하기
+        while(count <= limit) {
+            if (sum1 == target) return count;
+            
+            if (sum1 > target) {
+                sum1 -= queue[l%(2*n)];
+                l++;
+            } else {
+                sum1 += queue[r%(2*n)];
+                r++;
             }
             count++;
-            if (q1.isEmpty() || q2.isEmpty() || count == queue1.length*3) return -1;
         }
-        // 5. 두 큐의 값이 target과 같아지면 종료하고 횟수 반환
-        return count;
+        return -1;
     }
 }

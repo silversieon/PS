@@ -1,28 +1,37 @@
 import java.util.*;
 class Solution {
     public int solution(String[] want, int[] number, String[] discount) {
+       // want: number로 원하는 제품과 수량을 담는 HashMap
+        // discount를 10일치 순회하여 제품별 개수를 담음
+        // 10일치부터 시작해서 하루씩 증가하며 want: number 개수랑 비교
+        // 개수가 정확히 일치하면 answer++
         int answer = 0;
-        int days = 10;
-        Map<String, Integer> map = new HashMap<>();
-        for (int i=0; i<want.length; i++){
-            map.put(want[i], number[i]);
+        Map<String, Integer> wantCount = new HashMap<>();
+        for(int i=0; i<want.length; i++) {
+            wantCount.put(want[i], number[i]);
         }
-        for(int i=0; i<discount.length - days + 1; i++){
-            Map<String, Integer> dayMap = new HashMap<>();
-            
-            for(int d=0; d<days; d++){
-                dayMap.put(discount[i+d], dayMap.getOrDefault(discount[i+d], 0) + 1);
-            }
-            
-            boolean isIdentical = true;
-            
-            for(String key : map.keySet()){
-                if(map.get(key)!= dayMap.get(key)){
-                    isIdentical = false;
+        
+        Map<String, Integer> discountMap = new HashMap<>();
+        for(int i=0; i<10; i++) {
+            discountMap.merge(discount[i], 1, Integer::sum);
+        }
+        
+        for(int i=10; i<=discount.length; i++) {
+            boolean canPurchase = true;
+            for(Map.Entry<String, Integer> e : wantCount.entrySet()) {
+                if (discountMap.get(e.getKey()) == null || discountMap.get(e.getKey()) != e.getValue()) {
+                    canPurchase = false;
+                    break;
                 }
             }
-            if(isIdentical) answer++;
+            if(canPurchase) answer++;
+            if(i<discount.length) {
+                discountMap.merge(discount[i-10], -1, Integer::sum);
+                discountMap.merge(discount[i], 1, Integer::sum);   
+            }
         }
         return answer;
     }
 }
+
+// 27분

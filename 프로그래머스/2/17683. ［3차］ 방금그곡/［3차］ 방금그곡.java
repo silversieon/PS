@@ -1,14 +1,13 @@
 import java.util.*;
 class Solution {
     public String solution(String m, String[] musicinfos) {
-        // musicinfos를 순회하여 분에 맞게 노래 문자열을 이어붙여 ArrayList 저장 (입력한 순서대로 정렬 보장)
-        // LinkedHashMap을 순회하며 기억한 리듬 m이 해당 String 문자열 내부에 있다면
-        // 현재 노래의 제목과 재생 시간을 기록한다.
+        // #이 붙은 음은 소문자로 replace 필요
+        // musicinfos를 순회하여 분에 맞게 노래 문자열을 이어붙이기.
+        // 만약 m을 포함하고 있다면 재생시간을 비교, 더 긴 재생 시간을 가질 경우 정답 교체
         m = convert(m);
         String answer = "(None)";
-        List<String[]> musicList = new ArrayList<>();
+        int maxPlayTime = -1;
         StringBuilder sb = new StringBuilder();
-        
         for(String musicinfo : musicinfos) {
             String[] music = musicinfo.split(",");
             int playTime = toMinute(music[1]) - toMinute(music[0]);
@@ -21,18 +20,11 @@ class Solution {
                 p -= min;
             }
             
-            musicList.add(new String[]{music[2], String.valueOf(playTime), sb.toString()});
-            sb.setLength(0);
-        }
-
-        int maxPlayTime = -1;
-        for(String[] music : musicList) {
-            if(music[2].indexOf(m) != -1) {
-                if (maxPlayTime < Integer.parseInt(music[1])) {
-                    answer = music[0];
-                    maxPlayTime = Integer.parseInt(music[1]);
-                }
+            if (sb.toString().contains(m) && playTime > maxPlayTime) {
+                answer = music[2];
+                maxPlayTime = playTime;
             }
+            sb.setLength(0);
         }
         return answer;
     }

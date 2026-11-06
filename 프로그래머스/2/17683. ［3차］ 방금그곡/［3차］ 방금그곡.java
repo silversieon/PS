@@ -7,24 +7,19 @@ class Solution {
         m = convert(m);
         String answer = "(None)";
         int maxPlayTime = -1;
-        StringBuilder sb = new StringBuilder();
+        
         for(String musicinfo : musicinfos) {
             String[] music = musicinfo.split(",");
             int playTime = toMinute(music[1]) - toMinute(music[0]);
-            String rythm = convert(music[3]);
+            String melody = convert(music[3]);
             
-            int p = playTime;
-            while(p > 0) {
-                int min = Math.min(p, rythm.length());
-                sb.append(rythm.substring(0, min));
-                p -= min;
-            }
+            String played = melody.repeat(playTime/melody.length())
+                 + melody.substring(0, playTime%melody.length());
             
-            if (sb.toString().contains(m) && playTime > maxPlayTime) {
+            if (played.contains(m) && playTime > maxPlayTime) {
                 answer = music[2];
                 maxPlayTime = playTime;
             }
-            sb.setLength(0);
         }
         return answer;
     }

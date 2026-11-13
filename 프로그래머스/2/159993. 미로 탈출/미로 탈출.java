@@ -2,47 +2,42 @@ import java.util.*;
 class Solution {
     private static final int[] dx = {-1, 1, 0, 0};
     private static final int[] dy = {0, 0, 1, -1};
-    private int answer = Integer.MAX_VALUE;
     public int solution(String[] maps) {
-        int n = maps.length;
-        int m = maps[0].length();
-        int startToLever = 0;
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                if(maps[i].charAt(j) == 'S') {
-                    startToLever = bfs(maps, i, j, 'L');
+        int sx = 0, sy = 0, lx = 0, ly = 0;
+        for(int i=0; i<maps.length; i++) {
+            for(int j=0; j<maps[0].length(); j++) {
+                char c = maps[i].charAt(j);
+                if(c == 'S') {
+                    sx = i;
+                    sy = j;
+                } else if (c == 'L') {
+                    lx = i;
+                    ly = j;
                 }
             }
         }
-        if (startToLever == -1) return startToLever;
-        int leverToExit = 0;
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                if(maps[i].charAt(j) == 'L') {
-                    leverToExit = bfs(maps, i, j, 'E');
-                }
-            }
-        }
-        return leverToExit == -1 ? -1 : leverToExit+startToLever;
+        int toLever = bfs(maps, sx, sy, 'L');
+        if (toLever == -1) return -1;
+        
+        int toExit = bfs(maps, lx, ly, 'E');
+        if (toExit == -1) return -1;
+        
+        return toLever + toExit;
     }
     private int bfs(String[] maps, int sx, int sy, char target) {
         int n = maps.length;
         int m = maps[0].length();
+        
         int[][] dist = new int[n][m];
+        for(int[] row : dist) Arrays.fill(row, -1);
+        
         Deque<int[]> q = new ArrayDeque<>();
-        
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                dist[i][j] = -1;
-            }
-        }
-        
-        q.add(new int[]{sx, sy});
+        q.offer(new int[]{sx, sy});
         dist[sx][sy] = 0;
+        
         while(!q.isEmpty()) {
             int[] cur = q.poll();
-            int cx = cur[0];
-            int cy = cur[1];
+            int cx = cur[0], cy = cur[1];
             
             if(maps[cx].charAt(cy) == target) {
                 return dist[cx][cy];
@@ -53,12 +48,11 @@ class Solution {
                 int ny = cy + dy[i];
             
             if(nx>=0 && nx<n && ny>=0 && ny<m && maps[nx].charAt(ny) != 'X' && dist[nx][ny] == -1) {
-                q.add(new int[]{nx, ny});
-                dist[nx][ny] = dist[cx][cy] + 1;
+                    dist[nx][ny] = dist[cx][cy] + 1;
+                    q.offer(new int[]{nx, ny});
                 }
             }
         }
         return -1;
     }
 }
-// 3분까지

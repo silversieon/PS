@@ -1,25 +1,24 @@
 import java.util.*;
 class Solution {
     public int solution(int[] A, int[] B) {
-        int answer = 0;
-        PriorityQueue<Integer> pq_max = new PriorityQueue<>(Collections.reverseOrder());
-        for(int a : A){
-            pq_max.add(a);
-        }
+        Arrays.sort(A);
         Arrays.sort(B);
-        ArrayDeque<Integer> dq = new ArrayDeque<>();
-        for(int b : B){
-            dq.add(b);
-        }
-        while(!pq_max.isEmpty()){
-            int target = pq_max.poll();
-            if(target < dq.peekLast()){
-                dq.pollLast();
+        
+        int answer = 0;
+        int j=0;
+        for(int i=0; i<A.length; i++) {
+            int e = A[i];
+            
+            while(j < B.length && e >= B[j]) j++;
+            if(j == B.length) break;
+            else {
                 answer++;
-            } else {
-                dq.pollFirst();
+                j++;
             }
         }
         return answer;
     }
 }
+// 53분까지
+// 1, 3, 5, 7
+// 2, 2, 6, 8

@@ -4,19 +4,11 @@ class Solution {
         Arrays.sort(A);
         Arrays.sort(B);
         
-        int answer = 0;
-        int j=0;
-        for(int i=0; i<A.length; i++) {
-            int e = A[i];
-            
-            while(j < B.length && e >= B[j]) j++;
-            if(j == B.length) break;
-            else {
-                answer++;
-                j++;
-            }
+        int i=0;
+        for(int b : B) {
+            if (A[i] < b) i++;
         }
-        return answer;
+        return i;
     }
 }
 // 53분까지
